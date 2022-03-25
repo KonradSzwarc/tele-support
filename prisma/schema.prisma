@@ -19,3 +19,54 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 }
+
+enum UserRole {
+  ADMIN
+  MODERATOR
+  USER
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  name         String
+  password     String
+  language     String
+  createdCases Case[]
+  role         UserRole
+  deletedAt    DateTime?
+}
+
+enum FieldType {
+  SINGLE_SELECT
+  SHORT_TEXT
+}
+
+model FieldTemplate {
+  id        String          @id @default(uuid())
+  name      String
+  isVisible Boolean         @default(true)
+  parentId  String?
+  type      FieldType
+  fields    Field[]
+  children  FieldTemplate[] @relation("DependantTemplate")
+  parent    FieldTemplate?  @relation("DependantTemplate", fields: [parentId], references: [id])
+}
+
+model Field {
+  id         String        @id @default(uuid())
+  value      String
+  templateId String
+  caseId     String?
+  case       Case?         @relation(fields: [caseId], references: [id])
+  template   FieldTemplate @relation(fields: [templateId], references: [id])
+}
+
+model Case {
+  id        String    @id @default(uuid())
+  fields    Field[]
+  userId    String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  user      User?     @relation(fields: [userId], references: [id])
+}

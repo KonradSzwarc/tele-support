@@ -5,6 +5,7 @@
  */
 
 import { PrismaClient } from '@prisma/client';
+import { encryptPassword } from '../src/pages/api/auth/password';
 const prisma = new PrismaClient();
 
 async function main() {
@@ -20,6 +21,9 @@ async function main() {
     },
     update: {},
   });
+
+  const password = await encryptPassword('Dupa1');
+  await prisma.user.create({ data: { email: 'krzysztof@jarzyna.com', password, language: 'Polish', name: 'Krzysztof Jarzyna', role: 'ADMIN' } });
 }
 
 main()

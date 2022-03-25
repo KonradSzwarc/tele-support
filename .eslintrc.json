@@ -6,18 +6,15 @@
       "jsx": true
     }
   },
-  "extends": [
-    "next/core-web-vitals",
-    "airbnb-typescript",
-    "airbnb/hooks",
-    "plugin:react/jsx-runtime",
-    "plugin:unicorn/recommended"
-  ],
+  "extends": ["next/core-web-vitals", "airbnb-typescript", "airbnb/hooks", "plugin:react/jsx-runtime", "plugin:unicorn/recommended"],
   "plugins": ["prettier", "simple-import-sort"],
   "rules": {
     "unicorn/no-null": "off",
     "unicorn/prefer-module": "off",
     "unicorn/prefer-node-protocol": "off",
-    "unicorn/prevent-abbreviations": "off"
+    "unicorn/prevent-abbreviations": "off",
+    "unicorn/no-await-expression-member": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "no-console": "warn"
   }
 }
