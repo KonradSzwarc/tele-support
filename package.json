@@ -1,23 +1,59 @@
 {
   "name": "tele-support",
-  "version": "0.1.0",
   "private": true,
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@6.32.3",
+  "engines": {
+    "npm": "use-pnpm",
+    "node": ">=16",
+    "pnpm": ">=6"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "typecheck": "tsc --noEmit",
+    "db:up": "docker-compose up -d"
   },
   "dependencies": {
+    "@mantine/core": "4.0.8",
+    "@mantine/hooks": "4.0.8",
+    "@mantine/next": "4.0.8",
+    "@mantine/notifications": "4.0.8",
+    "@prisma/client": "3.11.1",
+    "@trpc/client": "9.20.3",
+    "@trpc/next": "9.20.3",
+    "@trpc/react": "9.20.3",
+    "@trpc/server": "9.20.3",
+    "cookies-next": "2.0.4",
     "next": "12.1.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-query": "3.34.17",
+    "superjson": "1.8.1",
+    "tabler-icons-react": "1.41.0",
+    "zod": "3.14.2"
   },
   "devDependencies": {
     "@types/node": "17.0.23",
     "@types/react": "17.0.43",
+    "@typescript-eslint/eslint-plugin": "5.15.0",
+    "@typescript-eslint/parser": "5.15.0",
     "eslint": "8.11.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-airbnb-typescript": "16.1.4",
     "eslint-config-next": "12.1.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-jsx-a11y": "6.5.1",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-react": "7.29.4",
+    "eslint-plugin-react-hooks": "4.3.0",
+    "eslint-plugin-simple-import-sort": "7.0.0",
+    "eslint-plugin-unicorn": "41.0.1",
+    "prettier": "2.6.0",
+    "prisma": "3.11.1",
     "typescript": "4.6.3"
   }
 }
