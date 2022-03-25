@@ -11,10 +11,9 @@
     "airbnb-typescript",
     "airbnb/hooks",
     "plugin:react/jsx-runtime",
-    "plugin:unicorn/recommended",
-    "plugin:prettier/recommended"
+    "plugin:unicorn/recommended"
   ],
-  "plugins": ["simple-import-sort"],
+  "plugins": ["prettier", "simple-import-sort"],
   "rules": {
     "unicorn/no-null": "off",
     "unicorn/prefer-module": "off",
