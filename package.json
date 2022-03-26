@@ -3,11 +3,6 @@
   "private": true,
   "license": "UNLICENSED",
   "packageManager": "pnpm@6.32.3",
-  "engines": {
-    "npm": "use-pnpm",
-    "node": ">=16",
-    "pnpm": ">=6"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -22,6 +17,7 @@
   },
   "dependencies": {
     "@mantine/core": "4.0.8",
+    "@mantine/form": "4.0.8",
     "@mantine/hooks": "4.0.8",
     "@mantine/next": "4.0.8",
     "@mantine/notifications": "4.0.8",
