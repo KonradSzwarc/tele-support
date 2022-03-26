@@ -15,8 +15,11 @@
     "unicorn/prevent-abbreviations": "off",
     "unicorn/no-await-expression-member": "off",
     "unicorn/no-array-callback-reference": "off",
+    "unicorn/prefer-default-parameters": "off",
+    "unicorn/no-array-reduce": "off",
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-shadow": "off",
+    "@typescript-eslint/comma-dangle": "off",
     "no-console": "warn"
   }
 }

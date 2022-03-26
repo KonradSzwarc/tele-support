@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-const shortText = (name: string) => ({ name, type: 'SHORT_TEXT' as const });
+const shortText = (name: string, isRequired = true) => ({ name, type: 'SHORT_TEXT' as const, isRequired });
 const option = (name: string) => ({ name, type: 'OPTION' as const });
 
 export const createFieldTemplates = async (prisma: PrismaClient) => {
@@ -25,11 +25,11 @@ export const createFieldTemplates = async (prisma: PrismaClient) => {
   });
 
   const comment = prisma.fieldTemplate.create({
-    data: shortText('Komentarz'),
+    data: shortText('Komentarz', false),
   });
 
   const contactInfo = prisma.fieldTemplate.create({
-    data: shortText('Dane kontaktowe'),
+    data: shortText('Dane kontaktowe', false),
   });
 
   const caseType = prisma.fieldTemplate.create({

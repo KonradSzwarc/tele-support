@@ -1,22 +1,20 @@
 import { Button, Center, Space } from '@mantine/core';
+import { FieldTemplate } from '@prisma/client';
 import { CloudUpload } from 'tabler-icons-react';
-import { useForm } from '../contexts/form-context';
 import { useCaseFields } from '../hooks';
+import { useForm } from '../hooks/use-form';
 import { CaseField } from './case-field';
 
+export type Field = FieldTemplate & { children: Field[] };
+
 export const CaseForm = () => {
-  const { submitForm } = useForm();
   const { data } = useCaseFields();
-  const notSimple = data?.filter((f) => f.type === 'SINGLE_SELECT');
-  const simple = data?.filter((f) => f.type === 'SHORT_TEXT');
+  const { submitForm } = useForm(data as Field[]);
 
   return (
     <Center sx={{ flexDirection: 'column' }}>
-      {notSimple?.map(({ id, name, type, children }) => (
-        <CaseField key={id} id={id} name={name} type={type} options={children as any} />
-      ))}
-      {simple?.map(({ id, name, type }) => (
-        <CaseField key={id} id={id} name={name} type={type} />
+      {data?.map(({ id, name, type, children, isRequired }) => (
+        <CaseField key={id} id={id} name={name} type={type} isRequired={isRequired} options={children as Field[]} />
       ))}
       <Space h="md" />
       <Button onClick={submitForm} rightIcon={<CloudUpload size={20} />}>

@@ -36,7 +36,7 @@ const App = (props: ExtendedAppProps) => {
       <SessionProvider>
         <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
           <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-            <NotificationsProvider>
+            <NotificationsProvider position="top-center">
               <Component {...pageProps} />
             </NotificationsProvider>
           </MantineProvider>

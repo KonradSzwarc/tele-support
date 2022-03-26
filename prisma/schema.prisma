@@ -44,14 +44,16 @@ enum FieldType {
 }
 
 model FieldTemplate {
-  id        String          @id @default(uuid())
-  name      String
-  isVisible Boolean         @default(true)
-  parentId  String?
-  type      FieldType
-  fields    Field[]
-  children  FieldTemplate[] @relation("DependantTemplate")
-  parent    FieldTemplate?  @relation("DependantTemplate", fields: [parentId], references: [id])
+  id         String          @id @default(uuid())
+  name       String
+  isVisible  Boolean         @default(true)
+  isRequired Boolean         @default(true)
+  order      Int             @default(autoincrement())
+  parentId   String?
+  type       FieldType
+  fields     Field[]
+  children   FieldTemplate[] @relation("DependantTemplate")
+  parent     FieldTemplate?  @relation("DependantTemplate", fields: [parentId], references: [id])
 }
 
 model Field {
