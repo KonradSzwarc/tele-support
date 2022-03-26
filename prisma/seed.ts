@@ -1,29 +1,14 @@
-/**
- * Adds seed data to your db
- *
- * @link https://www.prisma.io/docs/guides/database/seed-database
- */
-
 import { PrismaClient } from '@prisma/client';
-import { encryptPassword } from '../src/pages/api/auth/password';
+import { createFieldTemplates } from './models/field-templates';
+import { createUsers } from './models/users';
+
 const prisma = new PrismaClient();
 
 async function main() {
-  const firstPostId = '5c03994c-fc16-47e0-bd02-d218a370a078';
-  await prisma.post.upsert({
-    where: {
-      id: firstPostId,
-    },
-    create: {
-      id: firstPostId,
-      title: 'First Post',
-      text: 'This is an example post generated from `prisma/seed.ts`',
-    },
-    update: {},
-  });
+  const users = createUsers(prisma);
+  const fieldTemplates = createFieldTemplates(prisma);
 
-  const password = await encryptPassword('Dupa1');
-  await prisma.user.create({ data: { email: 'krzysztof@jarzyna.com', password, language: 'Polish', name: 'Krzysztof Jarzyna', role: 'ADMIN' } });
+  await Promise.all([users, fieldTemplates]);
 }
 
 main()

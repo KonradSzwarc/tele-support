@@ -14,7 +14,8 @@
     "start": "next start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "typecheck": "tsc --noEmit",
-    "db:up": "docker-compose up -d"
+    "db:up": "docker-compose up -d",
+    "seed": "prisma db push --force-reset && prisma db seed"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
