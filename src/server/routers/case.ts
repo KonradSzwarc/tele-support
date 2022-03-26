@@ -3,7 +3,9 @@ import { z } from 'zod';
 import { createRouter } from '../create-router';
 import { prisma } from '../prisma';
 
-const mapToField = ([key, value]: readonly [string | number, string]) => ({ value, templateId: key });
+type Writeable<T> = { -readonly [P in keyof T]: T[P] };
+const toPairs = (obj: Record<string, string>) => D.toPairs(obj);
+const mapToField = ([key, value]: readonly [string, string]) => ({ value, templateId: key });
 
 export const caseRouter = createRouter()
   .query('fields', {
@@ -19,9 +21,9 @@ export const caseRouter = createRouter()
   .mutation('create', {
     input: z.object({}).catchall(z.string()),
     async resolve({ input }) {
-      const fields = pipe(input, D.toPairs, A.map(mapToField)) as any;
-      const createdCase = await prisma.case.create({ data: { fields: { createMany: { data: fields } } } });
+      const fields = pipe(input, toPairs, A.map(mapToField));
+      const createdCase = await prisma.case.create({ data: { fields: { createMany: { data: fields as Writeable<typeof fields> } } } });
 
-      return null;
+      return createdCase;
     },
   });

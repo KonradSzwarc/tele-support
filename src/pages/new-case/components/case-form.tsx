@@ -1,7 +1,7 @@
 import { Button, Center, Space } from '@mantine/core';
 import { CloudUpload } from 'tabler-icons-react';
 import { useForm } from '../contexts/form-context';
-import { useCaseFields } from '../hooks/use-case-fields';
+import { useCaseFields } from '../hooks';
 import { CaseField } from './case-field';
 
 export const CaseForm = () => {

@@ -13,7 +13,8 @@ export const CaseField = ({ id, name, type, options }: CaseFieldProps) => {
   const [value, setValue] = useState<string | null>(null);
 
   const handleValueUpdate = (newValue: string | null) => {
-    updateField(id, newValue);
+    const value = newValue ?? '';
+    updateField(id, value);
     setValue(newValue);
   };
 
