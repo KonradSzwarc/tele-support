@@ -38,6 +38,7 @@ model User {
 }
 
 enum FieldType {
+  OPTION
   SINGLE_SELECT
   SHORT_TEXT
 }

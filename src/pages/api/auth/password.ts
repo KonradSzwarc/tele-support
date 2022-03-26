@@ -14,7 +14,7 @@ export const encryptPassword = async (password: string) => {
 };
 
 export const comparePasswordWithHash = async (databasePassword: string, passwordToCheck: string) => {
-  const [salt, databaseHash] = databasePassword.split(separator);
+  const [salt = '', databaseHash] = databasePassword.split(separator);
   const providedHash = (await pbkdf2(passwordToCheck, salt, 1000, 64, 'sha512')).toString('hex');
 
   return databaseHash === providedHash;

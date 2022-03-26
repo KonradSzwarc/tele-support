@@ -1,0 +1,12 @@
+import { Input, InputWrapper } from '@mantine/core';
+import { CaseFieldProps } from './case-field';
+
+export type ShortTextProps = Pick<CaseFieldProps, 'id' | 'name'>;
+
+export const ShortText = ({ id, name }: ShortTextProps) => {
+  return (
+    <InputWrapper id={id} required label={name} size="md">
+      <Input placeholder={name} size="md" />
+    </InputWrapper>
+  );
+};

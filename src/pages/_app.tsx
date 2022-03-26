@@ -18,7 +18,7 @@ interface ExtendedAppProps extends AppProps {
 
 const App = (props: ExtendedAppProps) => {
   const { Component, pageProps } = props;
-  const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
+  const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme ?? 'dark');
 
   const toggleColorScheme = (value?: ColorScheme) => {
     const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
@@ -72,7 +72,7 @@ export default withTRPC<AppRouter>({
       links: [
         // adds pretty logs to your console in development and logs errors in production
         loggerLink({
-          enabled: (opts) => process.env.NODE_ENV === 'development' || (opts.direction === 'down' && opts.result instanceof Error),
+          enabled: (opts) => opts.direction === 'down' && opts.result instanceof Error,
         }),
         httpBatchLink({
           url: `${getBaseUrl()}/api/trpc`,
