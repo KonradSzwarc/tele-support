@@ -3,9 +3,8 @@ import { Button, Center, Space, Modal } from '@mantine/core';
 import { useUsers } from '../../modules/users/hooks';
 import DisplayUsers from '../../modules/users/components/display-users';
 import { CreateUser } from '../../modules/users/components/create-user';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { UpdateUser } from '~/modules/users/components/update-user';
-import { User } from '@prisma/client';
 import { UpdateUserInput } from '~/modules/users/create-user-input';
 
 const RegisterNewUser: NextPage = () => {
@@ -37,11 +36,15 @@ const RegisterNewUser: NextPage = () => {
 
   return (
     <Center style={{ flexDirection: 'column', width: '90%', marginTop: '2rem' }}>
-      {showUserRegistration ? null : <Button onClick={() => setShowUserRegistration(true)}>Dodaj </Button>}
       {showUserRegistrationModal()}
       {showUserUpdateModal()}
       <Space h="md" />
-      <DisplayUsers users={data} selectUserForEdit={setSelectedUserForEdit} selectUserForDeactivation={setSelectedUserForDeactivation} />
+      <DisplayUsers
+        users={data}
+        setShowRegistrationModal={setShowUserRegistration}
+        selectUserForEdit={setSelectedUserForEdit}
+        selectUserForDeactivation={setSelectedUserForDeactivation}
+      />
     </Center>
   );
 };
