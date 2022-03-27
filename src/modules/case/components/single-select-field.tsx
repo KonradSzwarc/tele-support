@@ -1,4 +1,4 @@
-import { Chip, Chips, InputWrapper, Select, SelectItem, Space } from '@mantine/core';
+import { Chip, Chips, InputWrapper, SelectItem, Space } from '@mantine/core';
 
 export type SingleSelectFieldProps = {
   id: string;
@@ -14,12 +14,8 @@ export const SingleSelectField = ({ id, value, name = 'Podtyp', options, isRequi
     onChange(val.target.value);
   };
 
-
-  console.log({value});
-
-  
   const chips = options.map((o) => (
-    <Chip key={o.value} value={o.value} onClick={handleChange} >
+    <Chip key={o.value} value={o.value} onClick={handleChange}>
       {o.label}
     </Chip>
   ));

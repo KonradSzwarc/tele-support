@@ -11,16 +11,18 @@ export const CaseTemplate = () => {
       <Table striped highlightOnHover>
         <thead>
           <tr>
-            <th>Liczba porządkowa</th>
+            <th>Lp</th>
             <th>Nazwa</th>
             <th>Typ</th>
             <th>Pole wymagane</th>
-            <th>Pole widoczne</th>
+            <th>Edytuj</th>
+            <th>Usuń</th>
+            <th>Rozwiń</th>
           </tr>
         </thead>
         <tbody>
           {rows.map((fieldTemplate) => (
-            <TableRow key={fieldTemplate.id} {...fieldTemplate} />
+            <TableRow key={fieldTemplate.id} {...fieldTemplate} data={data!} />
           ))}
         </tbody>
       </Table>

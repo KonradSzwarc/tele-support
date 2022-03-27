@@ -1,6 +1,6 @@
-import { Button, Center, Space } from '@mantine/core';
+import { Center, Space } from '@mantine/core';
 import { FieldTemplate } from '@prisma/client';
-import { CloudUpload } from 'tabler-icons-react';
+import { SaveButton } from '~/components/save-button';
 import { useCaseFields } from '../hooks';
 import { useForm } from '../hooks/use-form';
 import { CaseField } from './case-field';
@@ -17,9 +17,7 @@ export const CaseForm = () => {
         <CaseField key={id} id={id} name={name} type={type} isRequired={isRequired} options={children as Field[]} />
       ))}
       <Space h="md" />
-      <Button onClick={submitForm} rightIcon={<CloudUpload size={20} />}>
-        Zapisz
-      </Button>
+      <SaveButton onClick={submitForm}></SaveButton>
     </Center>
   );
 };

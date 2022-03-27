@@ -1,5 +1,6 @@
 import { FieldTemplate } from '@prisma/client';
 import { useFormField } from '../hooks/use-form-field';
+import { byOrder } from '../utils';
 import { Field } from './case-form';
 import { ShortText } from './short-text';
 import { SingleSelectField } from './single-select-field';
@@ -15,8 +16,8 @@ export const CaseField = ({ id, name, type, options, isRequired }: CaseFieldProp
   };
 
   if (type === 'SINGLE_SELECT' && options) {
-    const dropdownOptions = options.map(({ name, id }) => ({ label: name, value: id }));
-    const nestedFields = options.filter(({ id }) => id === value);
+    const dropdownOptions = options.sort(byOrder).map(({ name, id }) => ({ label: name, value: id }));
+    const nestedFields = options.sort(byOrder).filter(({ id }) => id === value);
 
     return (
       <>

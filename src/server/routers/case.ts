@@ -1,10 +1,10 @@
 import { A, D, pipe } from '@mobily/ts-belt';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
+import { Writeable } from '~/utils';
 import { createRouter } from '../create-router';
 import { prisma } from '../prisma';
 
-type Writeable<T> = { -readonly [P in keyof T]: T[P] };
 const toPairs = (obj: Record<string, string>) => D.toPairs(obj);
 const mapToField = ([key, value]: readonly [string, string]) => ({ value, templateId: key });
 
