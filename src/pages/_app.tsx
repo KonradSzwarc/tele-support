@@ -11,6 +11,7 @@ import { httpBatchLink } from '@trpc/client/links/httpBatchLink';
 import { loggerLink } from '@trpc/client/links/loggerLink';
 import { AppRouter } from '~/server/routers/_app';
 import { transformer } from '~/utils/trpc';
+import { NavigationBar } from '~/components/navigation-bar';
 
 interface ExtendedAppProps extends AppProps {
   colorScheme: ColorScheme;
@@ -37,6 +38,7 @@ const App = (props: ExtendedAppProps) => {
         <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
           <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
             <NotificationsProvider position="top-center">
+              <NavigationBar />
               <Component {...pageProps} />
             </NotificationsProvider>
           </MantineProvider>

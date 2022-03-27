@@ -1,7 +1,6 @@
 import { Title, Text, Anchor } from '@mantine/core';
 import { NextPage } from 'next';
 import { Posts } from '~/components/posts';
-import { ColorSchemeToggle } from '../components/color-scheme-toggle';
 
 const HomePage: NextPage = () => {
   return (
@@ -20,7 +19,6 @@ const HomePage: NextPage = () => {
         </Anchor>
         . To get started edit index.tsx file.
       </Text>
-      <ColorSchemeToggle />
       <Posts />
     </>
   );

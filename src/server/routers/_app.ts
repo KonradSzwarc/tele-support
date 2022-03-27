@@ -1,6 +1,3 @@
-/**
- * This file contains the root router of your tRPC-backend
- */
 import { transformer } from '~/utils/trpc';
 import { createRouter } from '../create-router';
 import { caseRouter } from './case';
