@@ -58,7 +58,7 @@ export const CreateUser = ({ isCreateFormVisible }: CreateUserProps) => {
           {...form.getInputProps('password')}
         />
 
-        <TextInput style={entryStyles} required label="imię i naziwsko" placeholder="Jan Kowalski" {...form.getInputProps('name')} />
+        <TextInput style={entryStyles} required label="imię i nazwisko" placeholder="Jan Kowalski" {...form.getInputProps('name')} />
 
         <InputWrapper error={form.errors.language} label="Języki" style={entryStyles}>
           <Chips
@@ -67,6 +67,7 @@ export const CreateUser = ({ isCreateFormVisible }: CreateUserProps) => {
             style={entryStyles}
             {...form.getInputProps('language')}
             onChange={(val) => setLanguageStringOnForm(val, form)}
+            defaultValue={['Polski']}
           >
             <Chip value="Polski" defaultChecked={true}>
               Polski

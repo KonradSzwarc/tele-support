@@ -32,6 +32,11 @@ export const UpdateUser = ({ userToUpdate, selectUserForEdit }: UpdateUserProps)
     updateUser(values);
   };
 
+  const getLanguages = () => {
+    const langs = userToUpdate?.language?.split(', ');
+    return langs;
+  }
+
   const setLanguageStringOnForm = (languages: string[], form: any) => {
     const languageString = languages?.reduce((prev, curr) => prev + ', ' + curr, '');
     form.setFieldValue('language', languageString);
@@ -65,7 +70,7 @@ export const UpdateUser = ({ userToUpdate, selectUserForEdit }: UpdateUserProps)
             color="yellow"
             multiple
             style={entryStyles}
-            defaultValue={['Polski']}
+            defaultValue={getLanguages()}
             {...form.getInputProps('language')}
             onChange={(val) => setLanguageStringOnForm(val, form)}
           >
