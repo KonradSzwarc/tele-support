@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { encryptPassword } from '../../src/pages/api/auth/password';
+import { encryptPassword } from '../../src/modules/auth/password';
 
 const adminUser = { email: 'krzysztof@jarzyna.com', language: 'Polish', name: 'Krzysztof Jarzyna', role: 'ADMIN' as const };
 const regularUser = { email: 'john.smith@gmail.com', language: 'Ukrainian', name: 'John Smith', role: 'USER' as const };

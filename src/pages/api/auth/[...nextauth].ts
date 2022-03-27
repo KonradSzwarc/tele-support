@@ -3,7 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { prisma } from '~/server/prisma';
 import { D } from '@mobily/ts-belt';
 import { User, UserRole } from '@prisma/client';
-import { comparePasswordWithHash } from './password';
+import { comparePasswordWithHash } from '../../../modules/auth/password';
 
 const mapDataBaseUserToSessionUser = D.selectKeys<User, keyof User>(['email', 'name', 'language', 'role']);
 
