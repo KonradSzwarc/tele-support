@@ -1,8 +1,17 @@
 import { Center, Container, Text } from '@mantine/core';
+import { User } from '@prisma/client';
 import { Row } from './single-row';
 
-const DisplayUsers = ({ users }: any) => {
-  const rows = users.map((u: any, idx: number) => <Row key={u.id} user={u} nr={idx} />);
+interface DisplayUserProps {
+  users: User[],
+  selectUserForEdit: (user: User) => void,
+  selectUserForDeactivation:  (user: User) => void,
+}
+
+const DisplayUsers = ({ users, selectUserForEdit, selectUserForDeactivation }: any) => {
+  const rows = users.map((u: User, idx: number) => (
+    <Row key={u.id} user={u} nr={idx} setUserForEdit={selectUserForEdit} setUserForDeactivation={selectUserForDeactivation} />
+  ));
 
   return (
     <Container style={{ flexDirection: 'column', width: '90%' }}>

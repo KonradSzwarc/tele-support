@@ -1,33 +1,36 @@
 import { TextInput, Button, Group, Center, InputWrapper, Chips, Chip, Text } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
-import { UserRole } from '@prisma/client';
 import { CloudUpload } from 'tabler-icons-react';
-import { CreateUserInput, createUserInputSchema } from '~/modules/users/create-user-input';
-import { useCreateUser } from '../hooks';
+import { UpdateUserInput, updateUserInputSchema } from '~/modules/users/create-user-input';
+import { useUpdateUser } from '../hooks';
 
-interface CreateUserProps {
-  isCreateFormVisible: (isDisplayed: boolean) => void;
+interface UpdateUserProps {
+  userToUpdate: UpdateUserInput;
+  selectUserForEdit: (user: any) => void,
 }
 
-export const CreateUser = ({ isCreateFormVisible }: CreateUserProps) => {
-  const { mutateAsync: createUser } = useCreateUser();
-  const form = useForm<CreateUserInput>({
-    initialValues: {
-      email: '',
-      password: '',
-      name: '',
-      language: 'Polski',
-      role: UserRole.USER,
-    },
+export const UpdateUser = ({ userToUpdate, selectUserForEdit }: UpdateUserProps) => {
+  const { mutateAsync: updateUser } = useUpdateUser();
 
-    schema: zodResolver(createUserInputSchema),
+  const FAKE_PASSWORD = "tajnehaslo";
+  const form = useForm<UpdateUserInput>({
+    initialValues: {...userToUpdate, password: FAKE_PASSWORD},
+    schema: zodResolver(updateUserInputSchema),
   });
 
   const entryStyles = { padding: '1rem' };
 
-  const onFormSubmit = (values: CreateUserInput) => {
-    isCreateFormVisible(false);
-    createUser(values);
+  const onFormSubmit = (values: UpdateUserInput) => {
+    console.log('submitting...');
+    console.log('haslo: ', values.password);
+    
+    if (values.password === FAKE_PASSWORD) {
+      values.password = userToUpdate.password;
+    }
+    selectUserForEdit(null);
+    console.log('haslo przed zapisem: ', values.password);
+    
+    updateUser(values);
   };
 
   return (
@@ -45,19 +48,17 @@ export const CreateUser = ({ isCreateFormVisible }: CreateUserProps) => {
         <TextInput
           style={entryStyles}
           required
-          label="hasło"
+          label="hasło (zostaw puste aby pozostało bez zmian)"
           placeholder="tajnehaslo"
           type="password"
           {...form.getInputProps('password')}
         />
 
         <TextInput style={entryStyles} required label="imię i naziwsko" placeholder="Jan Kowalski" {...form.getInputProps('name')} />
-        {console.log(form.errors.role)}
+
         <InputWrapper error={form.errors.role}>
           <Chips color="green" style={entryStyles} {...form.getInputProps('role')}>
-            <Chip value="USER" defaultChecked={true}>
-              User
-            </Chip>
+            <Chip value="USER">User</Chip>
             <Chip value="MODERATOR">Moderator</Chip>
             <Chip value="ADMIN">Admin</Chip>
           </Chips>
