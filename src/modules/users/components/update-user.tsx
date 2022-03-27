@@ -22,7 +22,7 @@ export const UpdateUser = ({ userToUpdate, selectUserForEdit }: UpdateUserProps)
 
   const restorePasswordIfNeeded = (values: UpdateUserInput) => {
     if (values.password === FAKE_PASSWORD) {
-      values.password = userToUpdate.password;
+      values.password = undefined;
     }
   };
 
@@ -40,7 +40,7 @@ export const UpdateUser = ({ userToUpdate, selectUserForEdit }: UpdateUserProps)
   return (
     <Center style={{ marginBottom: '2rem', flexDirection: 'column' }}>
       <Text style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>Tworzenie nowego użytkownika</Text>
-      <form style={{ flexDirection: 'column' }} onSubmit={form.onSubmit(onFormSubmit)}>
+      <form style={{ flexDirection: 'column' }} onSubmit={form.onSubmit(onFormSubmit)} autoComplete="off">
         <TextInput
           style={entryStyles}
           required
@@ -65,12 +65,11 @@ export const UpdateUser = ({ userToUpdate, selectUserForEdit }: UpdateUserProps)
             color="yellow"
             multiple
             style={entryStyles}
+            defaultValue={['Polski']}
             {...form.getInputProps('language')}
             onChange={(val) => setLanguageStringOnForm(val, form)}
           >
-            <Chip value="Polski" defaultChecked={true}>
-              Polski
-            </Chip>
+            <Chip value="Polski">Polski</Chip>
             <Chip value="Ukraiński">Ukraiński</Chip>
             <Chip value="Angielski">Angielski</Chip>
             <Chip value="Francuski">Francuski</Chip>

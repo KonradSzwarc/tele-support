@@ -1,5 +1,6 @@
+import { D } from '@mobily/ts-belt';
 import { TRPCError } from '@trpc/server';
-import { string, z } from 'zod';
+import { z } from 'zod';
 import { createUserInputSchema, updateUserInputSchema } from '~/modules/users/create-user-input';
 import { createRouter } from '../create-router';
 import { prisma } from '../prisma';
@@ -7,7 +8,7 @@ import { prisma } from '../prisma';
 export const userRouter = createRouter()
   .query('users', {
     async resolve() {
-      const users = await prisma.user.findMany();
+      const users = await prisma.user.findMany({ select: { id: true, email: true, language: true, name: true, role: true } });
       return users;
     },
   })
@@ -38,12 +39,14 @@ export const userRouter = createRouter()
   .mutation('update', {
     input: updateUserInputSchema,
     async resolve({ input }) {
-      const { id } = input;
-      const userToUpdate = await prisma.user.update({
+      const { id, password } = input;
+      const userToUpdate = password ? input : D.deleteKey(input, 'password');
+
+      const updatedUser = await prisma.user.update({
         where: { id },
-        data: input,
+        data: userToUpdate,
       });
 
-      return userToUpdate;
+      return updatedUser;
     },
   });
