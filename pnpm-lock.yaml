@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@mantine/core': 4.0.8
+  '@mantine/form': 4.0.8
   '@mantine/hooks': 4.0.8
   '@mantine/next': 4.0.8
   '@mantine/notifications': 4.0.8
@@ -44,6 +45,7 @@ specifiers:
 
 dependencies:
   '@mantine/core': 4.0.8_035e9b556597b61aac960469000a33d6
+  '@mantine/form': 4.0.8_react@17.0.2
   '@mantine/hooks': 4.0.8_react@17.0.2
   '@mantine/next': 4.0.8_e7ae55fa1202c767417433651d1f65ed
   '@mantine/notifications': 4.0.8_69382a36cab141c5a12150c8638757f4
@@ -312,6 +314,14 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - '@types/react'
+    dev: false
+
+  /@mantine/form/4.0.8_react@17.0.2:
+    resolution: {integrity: sha512-TPip/GK2fWvhRvCuGSUmUUHPLVuiRzeiuiPdgX0FExsxaQrOJJAk3/GMFj5mgSjv6d8w/M1cpefpu/HQNjEaaw==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 17.0.2
     dev: false
 
   /@mantine/hooks/4.0.8_react@17.0.2:

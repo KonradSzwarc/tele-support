@@ -1,4 +1,3 @@
-
 import { z } from 'zod';
 import { UserRole } from '@prisma/client';
 
@@ -9,6 +8,6 @@ export const createUserInputSchema = z.object({
   password: z.string().min(3, 'Za krótkie hasło').max(150, 'Za długie hasło'),
   language: z.string().min(3, 'Za krótka nazwa języka').max(50, 'Za długa nazwa'),
   role: z.nativeEnum(UserRole),
-})
+});
 
-export type CreateUserInput = z.infer<typeof createUserInputSchema>
+export type CreateUserInput = z.infer<typeof createUserInputSchema>;
