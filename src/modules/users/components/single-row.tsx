@@ -16,7 +16,7 @@ export const Row = ({ user, nr, setUserForEdit, setUserForDeactivation }: any) =
         <Grid.Col span={2}>{user.role}</Grid.Col>
         
         <Grid.Col span={2}>
-          <Button color="green" onClick={chooseUser} leftIcon={<Edit />}>
+          <Button color="blue" onClick={chooseUser} leftIcon={<Edit />}>
             Edytuj
           </Button>
         </Grid.Col>

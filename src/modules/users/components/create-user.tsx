@@ -26,8 +26,15 @@ export const CreateUser = ({ isCreateFormVisible }: CreateUserProps) => {
   const entryStyles = { padding: '1rem' };
 
   const onFormSubmit = (values: CreateUserInput) => {
+    console.log('language: ', values.language);
+
     isCreateFormVisible(false);
     createUser(values);
+  };
+
+  const setLanguageStringOnForm = (languages: string[], form: any) => {
+    const languageString = languages?.reduce((prev, curr) => prev + ', ' + curr, "");
+    form.setFieldValue('language', languageString);
   };
 
   return (
@@ -52,8 +59,27 @@ export const CreateUser = ({ isCreateFormVisible }: CreateUserProps) => {
         />
 
         <TextInput style={entryStyles} required label="imię i naziwsko" placeholder="Jan Kowalski" {...form.getInputProps('name')} />
-        {console.log(form.errors.role)}
-        <InputWrapper error={form.errors.role}>
+
+        <InputWrapper error={form.errors.language} label="Języki" style={entryStyles}>
+          <Chips
+            color="yellow"
+            multiple
+            style={entryStyles}
+            {...form.getInputProps('language')}
+            onChange={(val) => setLanguageStringOnForm(val, form)}
+          >
+            <Chip value="Polski" defaultChecked={true}>
+              Polski
+            </Chip>
+            <Chip value="Ukraiński">Ukraiński</Chip>
+            <Chip value="Angielski">Angielski</Chip>
+            <Chip value="Francuski">Francuski</Chip>
+            <Chip value="Niemiecki">Niemiecki</Chip>
+            <Chip value="Inne">Inne</Chip>
+          </Chips>
+        </InputWrapper>
+
+        <InputWrapper error={form.errors.role} label="Rola" style={entryStyles}>
           <Chips color="green" style={entryStyles} {...form.getInputProps('role')}>
             <Chip value="USER" defaultChecked={true}>
               User

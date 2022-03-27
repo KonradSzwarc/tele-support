@@ -6,31 +6,35 @@ import { useUpdateUser } from '../hooks';
 
 interface UpdateUserProps {
   userToUpdate: UpdateUserInput;
-  selectUserForEdit: (user: any) => void,
+  selectUserForEdit: (user: any) => void;
 }
 
 export const UpdateUser = ({ userToUpdate, selectUserForEdit }: UpdateUserProps) => {
   const { mutateAsync: updateUser } = useUpdateUser();
 
-  const FAKE_PASSWORD = "tajnehaslo";
+  const FAKE_PASSWORD = 'tajnehaslo';
   const form = useForm<UpdateUserInput>({
-    initialValues: {...userToUpdate, password: FAKE_PASSWORD},
+    initialValues: { ...userToUpdate, password: FAKE_PASSWORD },
     schema: zodResolver(updateUserInputSchema),
   });
 
   const entryStyles = { padding: '1rem' };
 
-  const onFormSubmit = (values: UpdateUserInput) => {
-    console.log('submitting...');
-    console.log('haslo: ', values.password);
-    
+  const restorePasswordIfNeeded = (values: UpdateUserInput) => {
     if (values.password === FAKE_PASSWORD) {
       values.password = userToUpdate.password;
     }
+  };
+
+  const onFormSubmit = (values: UpdateUserInput) => {
+    restorePasswordIfNeeded(values);
     selectUserForEdit(null);
-    console.log('haslo przed zapisem: ', values.password);
-    
     updateUser(values);
+  };
+
+  const setLanguageStringOnForm = (languages: string[], form: any) => {
+    const languageString = languages?.reduce((prev, curr) => prev + ', ' + curr, '');
+    form.setFieldValue('language', languageString);
   };
 
   return (
@@ -54,9 +58,28 @@ export const UpdateUser = ({ userToUpdate, selectUserForEdit }: UpdateUserProps)
           {...form.getInputProps('password')}
         />
 
-        <TextInput style={entryStyles} required label="imię i naziwsko" placeholder="Jan Kowalski" {...form.getInputProps('name')} />
+        <TextInput style={entryStyles} required label="imię i nazwisko" placeholder="Jan Kowalski" {...form.getInputProps('name')} />
 
-        <InputWrapper error={form.errors.role}>
+        <InputWrapper error={form.errors.language} label="Języki" style={entryStyles}>
+          <Chips
+            color="yellow"
+            multiple
+            style={entryStyles}
+            {...form.getInputProps('language')}
+            onChange={(val) => setLanguageStringOnForm(val, form)}
+          >
+            <Chip value="Polski" defaultChecked={true}>
+              Polski
+            </Chip>
+            <Chip value="Ukraiński">Ukraiński</Chip>
+            <Chip value="Angielski">Angielski</Chip>
+            <Chip value="Francuski">Francuski</Chip>
+            <Chip value="Niemiecki">Niemiecki</Chip>
+            <Chip value="Inne">Inne</Chip>
+          </Chips>
+        </InputWrapper>
+
+        <InputWrapper error={form.errors.role} label="Rola" style={entryStyles}>
           <Chips color="green" style={entryStyles} {...form.getInputProps('role')}>
             <Chip value="USER">User</Chip>
             <Chip value="MODERATOR">Moderator</Chip>
