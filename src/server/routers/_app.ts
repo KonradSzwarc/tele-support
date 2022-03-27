@@ -2,6 +2,7 @@ import { transformer } from '~/utils/trpc';
 import { createRouter } from '../create-router';
 import { caseRouter } from './case';
 import { postRouter } from './post';
+import { templateRouter } from './template';
 import { userRouter } from './user';
 
 export const appRouter = createRouter()
@@ -13,6 +14,7 @@ export const appRouter = createRouter()
   })
   .merge('post.', postRouter)
   .merge('case.', caseRouter)
-  .merge('user.', userRouter);
+  .merge('user.', userRouter)
+  .merge('template.', templateRouter);
 
 export type AppRouter = typeof appRouter;

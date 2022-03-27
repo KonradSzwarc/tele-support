@@ -36,6 +36,7 @@ export const NavigationBar = () => {
       <Box sx={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
         <Logo />
         {isAuthenticated && <NavLink name="Nowa sprawa" path="/new-case" />}
+        {isAdmin && <NavLink name="Edytuj formularz" path="/edit-template" />}
         {isAdmin && <NavLink name="Użytkownicy" path="/users" />}
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
