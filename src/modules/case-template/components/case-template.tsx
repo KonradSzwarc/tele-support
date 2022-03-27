@@ -1,5 +1,6 @@
 import { Container, Table } from '@mantine/core';
 import { useTemplateFields } from '../hooks';
+import { AddFieldTemplate } from './add-field-template';
 import { TableRow } from './table-row';
 
 export const CaseTemplate = () => {
@@ -24,6 +25,7 @@ export const CaseTemplate = () => {
           {rows.map((fieldTemplate) => (
             <TableRow key={fieldTemplate.id} {...fieldTemplate} data={data!} />
           ))}
+          <AddFieldTemplate />
         </tbody>
       </Table>
     </Container>

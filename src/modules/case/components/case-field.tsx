@@ -15,9 +15,10 @@ export const CaseField = ({ id, name, type, options, isRequired }: CaseFieldProp
     updateField(id, value);
   };
 
-  if (type === 'SINGLE_SELECT' && options) {
+  if (type === 'SINGLE_SELECT') {
     const dropdownOptions = options.sort(byOrder).map(({ name, id }) => ({ label: name, value: id }));
     const nestedFields = options.sort(byOrder).filter(({ id }) => id === value);
+    console.log('🚀 ~ file: case-field.tsx ~ line 21 ~ CaseField ~ nestedFields', nestedFields);
 
     return (
       <>

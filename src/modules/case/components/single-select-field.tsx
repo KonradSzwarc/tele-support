@@ -9,7 +9,7 @@ export type SingleSelectFieldProps = {
   onChange: (selectItem: string | null) => void;
 };
 
-export const SingleSelectField = ({ id, value, name = 'Podtyp', options, isRequired, onChange }: SingleSelectFieldProps) => {
+export const SingleSelectField = ({ id, value, name = '', options, isRequired, onChange }: SingleSelectFieldProps) => {
   const handleChange = (val: any) => {
     onChange(val.target.value);
   };

@@ -3,7 +3,9 @@ import { useBooleanToggle } from '@mantine/hooks';
 import { FieldTemplate } from '@prisma/client';
 import { ChevronsDown, ChevronsUp, Trash } from 'tabler-icons-react';
 import { convertBoolToString, convertTypeToString } from '../utils';
+import { AddFieldTemplate } from './add-field-template';
 import { EditFieldTemplate } from './edit-field-template';
+import { RemoveFieldTemplate } from './remove-field-template';
 import { RowDivider } from './row-divider';
 
 export type TableRowProps = { data: FieldTemplate[] } & FieldTemplate;
@@ -24,9 +26,7 @@ export const TableRow = ({ id, isRequired, name, order, type, data }: TableRowPr
           <EditFieldTemplate id={id} isRequired={isRequired} name={name} order={order} type={type} />
         </td>
         <td>
-          <ActionIcon color="red" variant="light">
-            <Trash />
-          </ActionIcon>
+          <RemoveFieldTemplate id={id} />
         </td>
         <td>
           {rows.length > 0 && (
@@ -42,6 +42,7 @@ export const TableRow = ({ id, isRequired, name, order, type, data }: TableRowPr
           {rows.map((fieldTemplate) => (
             <TableRow key={fieldTemplate.id} data={data} {...fieldTemplate} />
           ))}
+          <AddFieldTemplate parentId={id} />
           <RowDivider />
         </>
       )}

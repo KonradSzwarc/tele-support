@@ -1,6 +1,7 @@
 import { Divider } from '@mantine/core';
 
-const columnsInTheTable = 8;
+//TODO: Fix this to be calculated
+export const columnsInTheTable = 8;
 
 export type RowDividerProps = {
   label?: string;

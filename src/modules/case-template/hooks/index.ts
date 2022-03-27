@@ -10,3 +10,22 @@ export const useTemplateFieldsUpdate = () => {
     },
   });
 };
+export const useTemplateFieldsCreate = () => {
+  const utils = trpc.useContext();
+
+  return trpc.useMutation('template.create', {
+    onSuccess() {
+      utils.invalidateQueries(['template.fields']);
+    },
+  });
+};
+
+export const useTemplateFieldsDelete = () => {
+  const utils = trpc.useContext();
+
+  return trpc.useMutation('template.delete', {
+    onSuccess() {
+      utils.invalidateQueries(['template.fields']);
+    },
+  });
+};
