@@ -16,8 +16,8 @@ const DisplayUsers = ({ users, setShowRegistrationModal, selectUserForEdit, sele
 
   return (
     <Container style={{ flexDirection: 'column', width: '90%' }}>
-      <Center style={{ padding: '1rem' }}>
-        <Text style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>Użytkownicy:</Text>
+      <Center style={{ padding: '1rem', justifyContent: 'space-between' }}>
+        <Text style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>Użytkownicy</Text>
         <Button  color="green" ml='1rem' onClick={() => setShowRegistrationModal(true)} leftIcon={<UserPlus />}>Dodaj </Button>
       </Center>
       {rows}
