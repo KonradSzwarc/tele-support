@@ -14,8 +14,12 @@ export const SingleSelectField = ({ id, value, name = 'Podtyp', options, isRequi
     onChange(val.target.value);
   };
 
+
+  console.log({value});
+
+  
   const chips = options.map((o) => (
-    <Chip key={o.value} value={o.value} onClick={handleChange}>
+    <Chip key={o.value} value={o.value} onClick={handleChange} >
       {o.label}
     </Chip>
   ));
@@ -24,7 +28,7 @@ export const SingleSelectField = ({ id, value, name = 'Podtyp', options, isRequi
       {!name && <Space h="md" />}
 
       <InputWrapper label={name} size="md">
-        <Chips color="green" aria-required={isRequired}>
+        <Chips color="green" aria-required={isRequired} value={value}>
           {chips}
         </Chips>
       </InputWrapper>
