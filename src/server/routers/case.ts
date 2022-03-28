@@ -21,6 +21,13 @@ export const caseRouter = createRouter()
       return fields;
     },
   })
+  .query('cases', {
+    async resolve() {
+      const cases = await prisma.case.findMany({ select: { id: true, fields: true, userId: true, createdAt: true } });
+
+      return cases;
+    },
+  })
   .mutation('create', {
     input: z.object({}).catchall(z.string()),
     async resolve({ input, ctx: { session } }) {
