@@ -1,5 +1,4 @@
 import { Container, Table } from '@mantine/core';
-import { ReportRow } from '~/modules/reports/components/report-row';
 import { useTemplateFields } from '../hooks';
 import { AddFieldTemplate } from './add-field-template';
 import { TableRow } from './table-row';
@@ -23,7 +22,10 @@ export const CaseTemplate = () => {
           </tr>
         </thead>
         <tbody>
-          <ReportRow />
+          {rows.map((fieldTemplate) => (
+            <TableRow key={fieldTemplate.id} {...fieldTemplate} data={data!} />
+          ))}
+          <AddFieldTemplate />
         </tbody>
       </Table>
     </Container>

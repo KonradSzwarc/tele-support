@@ -23,7 +23,9 @@ export const caseRouter = createRouter()
   })
   .query('cases', {
     async resolve() {
-      const cases = await prisma.case.findMany({ select: { id: true, fields: true, userId: true, createdAt: true } });
+      const cases = await prisma.case.findMany({
+        select: { id: true, fields: { include: { case: true } }, user: { select: { name: true, email: true } }, createdAt: true },
+      });
 
       return cases;
     },
