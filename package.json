@@ -3,6 +3,9 @@
   "private": true,
   "license": "UNLICENSED",
   "packageManager": "pnpm@6.32.3",
+  "engines": {
+    "node": ">= 16"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
