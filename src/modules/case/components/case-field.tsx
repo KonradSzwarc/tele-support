@@ -24,8 +24,8 @@ export const CaseField = ({ id, name, type, options, isRequired }: CaseFieldProp
   };
 
   if (type === 'SINGLE_SELECT') {
-    const selectionOptions = options.sort(byOrder).filter(onlyVisible).map(toSelectionOption);
-    const nestedFields = options.sort(byOrder).filter(idMatches(value)).filter(onlyVisible);
+    const selectionOptions = options.filter(onlyVisible).sort(byOrder).map(toSelectionOption);
+    const nestedFields = options.filter(idMatches(value)).filter(onlyVisible).sort(byOrder);
 
     return (
       <>

@@ -9,7 +9,7 @@ export type SingleSelectFieldProps = {
   onChange: (selectItem: string | null) => void;
 };
 
-export const SingleSelectField = ({ id, value, name = '', options, isRequired, onChange }: SingleSelectFieldProps) => {
+export const SingleSelectField = ({ value, name = '', options, isRequired, onChange }: SingleSelectFieldProps) => {
   const handleChange = (val: any) => {
     onChange(val.target.value);
   };
@@ -19,10 +19,10 @@ export const SingleSelectField = ({ id, value, name = '', options, isRequired, o
       {o.label}
     </Chip>
   ));
+
   return (
     <>
       {!name && <Space h="md" />}
-
       <InputWrapper label={name} size="md">
         <Chips color="green" aria-required={isRequired} value={value}>
           {chips}

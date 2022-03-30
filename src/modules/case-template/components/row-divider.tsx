@@ -1,6 +1,5 @@
 import { Divider } from '@mantine/core';
 
-//TODO: Fix this to be calculated
 export const columnsInTheTable = 8;
 
 export type RowDividerProps = {
