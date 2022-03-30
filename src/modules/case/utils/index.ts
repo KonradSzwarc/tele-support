@@ -6,5 +6,3 @@ const getRequiredFieldsIds = (acc: string[], { id, isRequired, type, children }:
   return acc;
 };
 export const getRequiredFields = (fields: Field[]) => fields.reduce(getRequiredFieldsIds, []);
-
-export const byOrder = (a: Field, b: Field) => a.order - b.order;

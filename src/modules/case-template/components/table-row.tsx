@@ -1,8 +1,9 @@
 import { ActionIcon } from '@mantine/core';
 import { useBooleanToggle } from '@mantine/hooks';
 import { FieldTemplate } from '@prisma/client';
-import { ChevronsDown, ChevronsUp, Trash } from 'tabler-icons-react';
-import { convertBoolToString, convertTypeToString } from '../utils';
+import { ChevronsDown, ChevronsUp } from 'tabler-icons-react';
+import { byOrder } from '~/utils';
+import { convertBoolToString, convertTypeToString, getLastElementOrder } from '../utils';
 import { AddFieldTemplate } from './add-field-template';
 import { EditFieldTemplate } from './edit-field-template';
 import { RemoveFieldTemplate } from './remove-field-template';
@@ -13,7 +14,8 @@ export type TableRowProps = { data: FieldTemplate[] } & FieldTemplate;
 export const TableRow = ({ id, isRequired, name, order, type, data }: TableRowProps) => {
   const [isExpanded, toogleIsExpanded] = useBooleanToggle();
 
-  const rows = data.filter(({ parentId }) => parentId === id);
+  const rows = data.filter(({ parentId }) => parentId === id).sort(byOrder);
+  const childElementDefaultOrder = getLastElementOrder(rows);
 
   return (
     <>
@@ -23,6 +25,9 @@ export const TableRow = ({ id, isRequired, name, order, type, data }: TableRowPr
         <td>{convertTypeToString(type)}</td>
         <td>{convertBoolToString(isRequired)}</td>
         <td>
+          <AddFieldTemplate parentId={id} order={childElementDefaultOrder} />
+        </td>
+        <td>
           <EditFieldTemplate id={id} isRequired={isRequired} name={name} order={order} type={type} />
         </td>
         <td>
@@ -30,7 +35,7 @@ export const TableRow = ({ id, isRequired, name, order, type, data }: TableRowPr
         </td>
         <td>
           {rows.length > 0 && (
-            <ActionIcon color="blue" variant="light" onClick={() => toogleIsExpanded()}>
+            <ActionIcon color="blue" variant="light" onClick={() => toogleIsExpanded()} sx={{ margin: 'auto' }}>
               {isExpanded ? <ChevronsUp /> : <ChevronsDown />}
             </ActionIcon>
           )}
@@ -42,7 +47,6 @@ export const TableRow = ({ id, isRequired, name, order, type, data }: TableRowPr
           {rows.map((fieldTemplate) => (
             <TableRow key={fieldTemplate.id} data={data} {...fieldTemplate} />
           ))}
-          <AddFieldTemplate parentId={id} />
           <RowDivider />
         </>
       )}

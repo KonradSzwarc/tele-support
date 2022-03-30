@@ -4,13 +4,13 @@ import { useNotifications } from '@mantine/notifications';
 import { Plus } from 'tabler-icons-react';
 import { useTemplateFieldsCreate } from '../hooks';
 import { FieldTemplateForm, FieldTemplateInput } from './field-template-form';
-import { columnsInTheTable } from './row-divider';
 
 export type AddFieldTemplateProps = {
   parentId?: string;
+  order: number;
 };
 
-export const AddFieldTemplate = ({ parentId }: AddFieldTemplateProps) => {
+export const AddFieldTemplate = ({ parentId, order }: AddFieldTemplateProps) => {
   const { mutateAsync: createFieldTemplate } = useTemplateFieldsCreate();
   const notifications = useNotifications();
   const [isModalOpen, toggleIsModalOpen] = useBooleanToggle();
@@ -24,15 +24,11 @@ export const AddFieldTemplate = ({ parentId }: AddFieldTemplateProps) => {
   return (
     <>
       <Modal opened={isModalOpen} withCloseButton={false} onClose={toggleIsModalOpen} title="Dodaj nowe pole">
-        <FieldTemplateForm onSubmit={handleFormSubmission} />
+        <FieldTemplateForm onSubmit={handleFormSubmission} order={order} />
       </Modal>
-      <tr style={{ backgroundColor: 'transparent' }}>
-        <td colSpan={columnsInTheTable}>
-          <ActionIcon color="green" variant="light" sx={{ margin: '0 auto' }} onClick={() => toggleIsModalOpen()}>
-            <Plus />
-          </ActionIcon>
-        </td>
-      </tr>
+      <ActionIcon color="green" variant="light" sx={{ margin: '0 auto' }} onClick={() => toggleIsModalOpen()}>
+        <Plus />
+      </ActionIcon>
     </>
   );
 };

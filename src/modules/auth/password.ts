@@ -1,5 +1,5 @@
-import crypto from 'node:crypto';
-import { promisify } from 'node:util';
+import crypto from 'crypto';
+import { promisify } from 'util';
 
 const randomBytes = promisify(crypto.randomBytes);
 const pbkdf2 = promisify(crypto.pbkdf2);

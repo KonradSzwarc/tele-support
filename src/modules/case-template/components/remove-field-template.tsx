@@ -16,7 +16,7 @@ export const RemoveFieldTemplate = ({ id }: RemoveFieldTemplateProps) => {
   };
 
   return (
-    <ActionIcon color="red" variant="light" onClick={handleClick}>
+    <ActionIcon color="red" variant="light" onClick={handleClick} sx={{ margin: 'auto' }}>
       <Trash />
     </ActionIcon>
   );

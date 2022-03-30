@@ -24,7 +24,7 @@ export const EditFieldTemplate = ({ id, ...rest }: EditFieldTemplateProps) => {
       <Modal opened={isModalOpen} withCloseButton={false} onClose={toggleIsModalOpen} title="Edytuj pole">
         <FieldTemplateForm onSubmit={handleFormSubmission} {...rest} />
       </Modal>
-      <ActionIcon color="yellow" variant="light" onClick={() => toggleIsModalOpen()}>
+      <ActionIcon color="yellow" variant="light" onClick={() => toggleIsModalOpen()} sx={{ margin: 'auto' }}>
         <Edit />
       </ActionIcon>
     </>

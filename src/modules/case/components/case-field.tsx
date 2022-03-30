@@ -1,11 +1,19 @@
 import { FieldTemplate } from '@prisma/client';
+import { byOrder } from '~/utils';
 import { useFormField } from '../hooks/use-form-field';
-import { byOrder } from '../utils';
 import { Field } from './case-form';
 import { ShortText } from './short-text';
 import { SingleSelectField } from './single-select-field';
 
 export type CaseFieldProps = Pick<FieldTemplate, 'id' | 'type' | 'isRequired'> & { name?: string; options: Field[] };
+
+const onlyVisible = ({ isVisible }: Field) => isVisible;
+const idMatches =
+  (value: string) =>
+  ({ id }: Field) =>
+    id === value;
+
+const toSelectionOption = ({ name, id }: Field) => ({ label: name, value: id });
 
 export const CaseField = ({ id, name, type, options, isRequired }: CaseFieldProps) => {
   const { value, updateField } = useFormField(id);
@@ -16,16 +24,15 @@ export const CaseField = ({ id, name, type, options, isRequired }: CaseFieldProp
   };
 
   if (type === 'SINGLE_SELECT') {
-    const dropdownOptions = options.sort(byOrder).map(({ name, id }) => ({ label: name, value: id }));
-    const nestedFields = options.sort(byOrder).filter(({ id }) => id === value);
-    console.log('🚀 ~ file: case-field.tsx ~ line 21 ~ CaseField ~ nestedFields', nestedFields);
+    const selectionOptions = options.sort(byOrder).filter(onlyVisible).map(toSelectionOption);
+    const nestedFields = options.sort(byOrder).filter(idMatches(value)).filter(onlyVisible);
 
     return (
       <>
         <SingleSelectField
           id={id}
           name={name}
-          options={dropdownOptions}
+          options={selectionOptions}
           onChange={handleValueUpdate}
           isRequired={isRequired}
           value={value}
