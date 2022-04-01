@@ -9,18 +9,20 @@ import { EditFieldTemplate } from './edit-field-template';
 import { RemoveFieldTemplate } from './remove-field-template';
 import { RowDivider } from './row-divider';
 
-export type TableRowProps = { data: FieldTemplate[] } & FieldTemplate;
+export type TableRowProps = { data: FieldTemplate[]; sequence?: string } & FieldTemplate;
 
-export const TableRow = ({ id, isRequired, name, order, type, data }: TableRowProps) => {
+export const TableRow = ({ id, isRequired, name, order, type, data, sequence = '' }: TableRowProps) => {
   const [isExpanded, toogleIsExpanded] = useBooleanToggle();
 
   const rows = data.filter(({ parentId }) => parentId === id).sort(byOrder);
   const childElementDefaultOrder = getLastElementOrder(rows);
 
+  const sequenceToShow = sequence ? `${sequence}.${order}` : order.toString();
+
   return (
     <>
       <tr>
-        <td>{order}</td>
+        <td>{sequenceToShow}</td>
         <td>{name}</td>
         <td>{convertTypeToString(type)}</td>
         <td>{convertBoolToString(isRequired)}</td>
@@ -45,7 +47,7 @@ export const TableRow = ({ id, isRequired, name, order, type, data }: TableRowPr
         <>
           <RowDivider label={name} />
           {rows.map((fieldTemplate) => (
-            <TableRow key={fieldTemplate.id} data={data} {...fieldTemplate} />
+            <TableRow key={fieldTemplate.id} data={data} sequence={sequenceToShow} {...fieldTemplate} />
           ))}
           <RowDivider />
         </>

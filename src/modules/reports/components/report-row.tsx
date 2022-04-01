@@ -1,23 +1,32 @@
-import { Case } from '@prisma/client';
+import { A } from '@mobily/ts-belt';
 
-export type ReportRowProps = { data: Case[]; nr: number } & Case;
+export type ReportRowProps = {
+  index: number;
+  id: string;
+  author: string | undefined;
+  createdAt: Date;
+  columns: readonly {
+    columnName: string;
+    value: string | undefined;
+  }[];
+};
 
-// export const ReportRow = ({ nr, createdAt } : ReportRowProps) => {
-export const ReportRow = () => {
+export const ReportRow = ({ index, createdAt, columns, author = '' }: ReportRowProps) => {
+  const formattedCreationData = new Date(createdAt).toLocaleDateString();
+  const findColumn = (columnToFind: string) => A.find(columns, ({ columnName }) => columnName === columnToFind)?.value;
+
   return (
     <>
       <tr>
-        {/* <td>{nr}</td> */}
-        {/* <td>{createdAt}</td> */}
-        <td>1</td>
-        <td>28.03.2022</td>
-        <td>Zamieszkanie</td>
-        <td>1 noc</td>
-        <td>2-3 osoby</td>
-        <td>w toku</td>
-        <td>Oddzwonic jak sie cos znajdzie w Bychawie</td>
-        <td>500100200</td>
-        {/* <td>{user.email}</td> */}
+        <td>{index}</td>
+        <td>{formattedCreationData}</td>
+        <td>{findColumn('Typ')}</td>
+        <td></td>
+        <td></td>
+        <td>{findColumn('Status Sprawy')}</td>
+        <td>{findColumn('Komentarz')}</td>
+        <td>{findColumn('Dane kontaktowe')}</td>
+        <td>{author}</td>
         {/* <td>{convertTypeToString(type)}</td>
         <td>{convertBoolToString(isRequired)}</td>
         <td>

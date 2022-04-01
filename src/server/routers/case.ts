@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { Writeable } from '~/utils';
 import { createRouter } from '../create-router';
 import { prisma } from '../prisma';
+import { getReport } from '../services/report';
 
 const toPairs = (obj: Record<string, string>) => D.toPairs(obj);
 const mapToField = ([key, value]: readonly [string, string]) => ({ value, templateId: key });
@@ -23,11 +24,7 @@ export const caseRouter = createRouter()
   })
   .query('cases', {
     async resolve() {
-      const cases = await prisma.case.findMany({
-        select: { id: true, fields: { include: { case: true } }, user: { select: { name: true, email: true } }, createdAt: true },
-      });
-
-      return cases;
+      return getReport();
     },
   })
   .mutation('create', {
