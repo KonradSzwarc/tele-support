@@ -23,7 +23,7 @@ export const CaseField = ({ id, name, type, options, isRequired }: CaseFieldProp
     updateField(id, value);
   };
 
-  if (type === 'SINGLE_SELECT') {
+  if (type === 'SINGLE_SELECT' && options) {
     const selectionOptions = options.filter(onlyVisible).sort(byOrder).map(toSelectionOption);
     const nestedFields = options.filter(idMatches(value)).filter(onlyVisible).sort(byOrder);
 
