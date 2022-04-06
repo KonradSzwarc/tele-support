@@ -39,8 +39,8 @@ export default NextAuth({
         if (!credentials) return null;
 
         const { email, password } = credentials;
-        const user = await prisma.user.findUnique({ where: { email: email } });
-        if (!user) return null;
+        const user = await prisma.user.findUnique({ where: { email } });
+        if (!user || user.deletedAt) return null;
 
         const isPasswordLegit = await comparePasswordWithHash(user.password, password);
         const sessionUser = mapDataBaseUserToSessionUser(user);

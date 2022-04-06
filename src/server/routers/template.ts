@@ -1,9 +1,11 @@
 import { z } from 'zod';
 import { fieldTemplateInputSchema } from '~/modules/case-template/components/field-template-form';
 import { createRouter } from '../create-router';
+import { hasRole } from '../middleware/auth';
 import { prisma } from '../prisma';
 
 export const templateRouter = createRouter()
+  .middleware(hasRole('ADMIN'))
   .query('fields', {
     async resolve() {
       const fields = await prisma.fieldTemplate.findMany({

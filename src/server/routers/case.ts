@@ -3,6 +3,7 @@ import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 import { Writeable } from '~/utils';
 import { createRouter } from '../create-router';
+import { isAuthenticated } from '../middleware/auth';
 import { prisma } from '../prisma';
 import { getReport } from '../services/report';
 
@@ -10,6 +11,7 @@ const toPairs = (obj: Record<string, string>) => D.toPairs(obj);
 const mapToField = ([key, value]: readonly [string, string]) => ({ value, templateId: key });
 
 export const caseRouter = createRouter()
+  .middleware(isAuthenticated)
   .query('fields', {
     async resolve() {
       const fields = await prisma.fieldTemplate.findMany({
@@ -23,8 +25,10 @@ export const caseRouter = createRouter()
     },
   })
   .query('cases', {
-    async resolve() {
-      return getReport();
+    async resolve({ ctx: { session } }) {
+      const userEmail = session.user.role === 'ADMIN' ? null : session.user.email!;
+
+      return getReport(userEmail);
     },
   })
   .mutation('create', {

@@ -19,5 +19,10 @@ export const updateUserInputSchema = z.object({
   role: z.nativeEnum(UserRole),
 });
 
+export const deleteUserInputSchema = z.object({
+  id: z.string().nonempty(),
+});
+
 export type CreateUserInput = z.infer<typeof createUserInputSchema>;
 export type UpdateUserInput = z.infer<typeof updateUserInputSchema>;
+export type DeleteUserInput = z.infer<typeof deleteUserInputSchema>;
