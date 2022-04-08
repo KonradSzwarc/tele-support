@@ -23,7 +23,7 @@ export const SingleSelectField = ({ value, name = '', options, isRequired, onCha
   return (
     <>
       {!name && <Space h="md" />}
-      <InputWrapper label={name} size="md">
+      <InputWrapper label={name} size="md" p='sm'>
         <Chips color="green" aria-required={isRequired} value={value}>
           {chips}
         </Chips>
