@@ -1,11 +1,16 @@
 import { Chip, Chips, InputWrapper, SelectItem, Space } from '@mantine/core';
+interface selectionOptions {
+  label: string;
+  value: string;
+  isCheckedByDefault: boolean;
+}
 
 export type SingleSelectFieldProps = {
   id: string;
   value: string;
   name?: string;
   isRequired: boolean;
-  options: SelectItem[];
+  options: selectionOptions[];
   onChange: (selectItem: string | null) => void;
 };
 
@@ -13,6 +18,8 @@ export const SingleSelectField = ({ value, name = '', options, isRequired, onCha
   const handleChange = (val: any) => {
     onChange(val.target.value);
   };
+
+// TODO jesli option.isCheckedByDefault jest TRUE to chip powinien wyswietlic sie od razu zaznaczony... defaultChecked i checked nie powoduja zaznaczenia :F
 
   const chips = options.map((o) => (
     <Chip key={o.value} value={o.value} onClick={handleChange}>

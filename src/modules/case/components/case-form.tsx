@@ -13,8 +13,8 @@ export const CaseForm = () => {
 
   return (
     <Center sx={{ flexDirection: 'column' }}>
-      {data?.map(({ id, name, type, children, isRequired }) => (
-        <CaseField key={id} id={id} name={name} type={type} isRequired={isRequired} options={children as Field[]} />
+      {data?.map(({ id, name, type, children, isRequired, isCheckedByDefault }) => (
+        <CaseField key={id} id={id} name={name} type={type} isRequired={isRequired} isCheckedByDefault={isCheckedByDefault} options={children as Field[]} />
       ))}
       <Space h="md" />
       <SaveButton onClick={submitForm}></SaveButton>

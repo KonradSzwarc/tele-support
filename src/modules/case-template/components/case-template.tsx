@@ -20,6 +20,7 @@ export const CaseTemplate = () => {
             <th>Nazwa</th>
             <th>Typ</th>
             <th>Pole wymagane</th>
+            <th>domyślnie zaznaczone</th>
             <th style={{ textAlign: 'center' }}>Dodaj</th>
             <th style={{ textAlign: 'center' }}>Edytuj</th>
             <th style={{ textAlign: 'center' }}>Usuń</th>

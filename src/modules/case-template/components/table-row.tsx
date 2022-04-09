@@ -11,7 +11,7 @@ import { RowDivider } from './row-divider';
 
 export type TableRowProps = { data: FieldTemplate[]; sequence?: string } & FieldTemplate;
 
-export const TableRow = ({ id, isRequired, name, order, type, data, sequence = '' }: TableRowProps) => {
+export const TableRow = ({ id, isRequired, isCheckedByDefault, name, order, type, data, sequence = '' }: TableRowProps) => {
   const [isExpanded, toogleIsExpanded] = useBooleanToggle();
 
   const rows = data.filter(({ parentId }) => parentId === id).sort(byOrder);
@@ -26,11 +26,12 @@ export const TableRow = ({ id, isRequired, name, order, type, data, sequence = '
         <td>{name}</td>
         <td>{convertTypeToString(type)}</td>
         <td>{convertBoolToString(isRequired)}</td>
+        <td>{convertBoolToString(isCheckedByDefault)}</td>
         <td>
           <AddFieldTemplate parentId={id} order={childElementDefaultOrder} />
         </td>
         <td>
-          <EditFieldTemplate id={id} isRequired={isRequired} name={name} order={order} type={type} />
+          <EditFieldTemplate id={id} isRequired={isRequired} isCheckedByDefault={isCheckedByDefault} name={name} order={order} type={type} />
         </td>
         <td>
           <RemoveFieldTemplate id={id} />

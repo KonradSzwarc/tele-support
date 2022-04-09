@@ -12,6 +12,7 @@ export const fieldTemplateInputSchema = z.object({
   name: z.string().min(1),
   order: z.number().int().min(0),
   isRequired: z.boolean().default(true),
+  isCheckedByDefault: z.boolean().default(false),
   type: z.nativeEnum(FieldType),
 });
 
@@ -23,6 +24,7 @@ export type FieldTemplateFormProps = {
 
 export const FieldTemplateForm = ({
   isRequired = true,
+  isCheckedByDefault = false,
   name = '',
   order = 1,
   type = 'SINGLE_SELECT',
@@ -40,9 +42,15 @@ export const FieldTemplateForm = ({
       order,
       type,
       isRequired,
+      isCheckedByDefault,
     },
     schema: zodResolver(fieldTemplateInputSchema),
   });
+
+  const showCheckedByDefaultForOptionsOnly =
+    form.getInputProps('type').value === 'OPTION' ? (
+      <Switch size="md" label="Pole jest domyślnie zaznaczone" {...form.getInputProps('isCheckedByDefault')} />
+    ) : null;
 
   return (
     <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }} onSubmit={form.onSubmit(onSubmit)}>
@@ -50,6 +58,7 @@ export const FieldTemplateForm = ({
       <NumberInput label="Kolejność" min={0} {...form.getInputProps('order')} />
       <Select label="Typ" data={types as Writeable<typeof types>} {...form.getInputProps('type')} />
       <Switch size="md" label="Pole jest wymagane" {...form.getInputProps('isRequired')} />
+      {showCheckedByDefaultForOptionsOnly}
       <SaveButton type="submit" />
     </Box>
   );

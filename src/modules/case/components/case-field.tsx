@@ -5,7 +5,7 @@ import { Field } from './case-form';
 import { ShortText } from './short-text';
 import { SingleSelectField } from './single-select-field';
 
-export type CaseFieldProps = Pick<FieldTemplate, 'id' | 'type' | 'isRequired'> & { name?: string; options: Field[] };
+export type CaseFieldProps = Pick<FieldTemplate, 'id' | 'type' | 'isRequired' | 'isCheckedByDefault'> & { name?: string; options: Field[] };
 
 const onlyVisible = ({ isVisible }: Field) => isVisible;
 const idMatches =
@@ -13,9 +13,9 @@ const idMatches =
   ({ id }: Field) =>
     id === value;
 
-const toSelectionOption = ({ name, id }: Field) => ({ label: name, value: id });
+const toSelectionOption = ({ name, id, isCheckedByDefault }: Field) => ({ label: name, value: id, isCheckedByDefault: isCheckedByDefault });
 
-export const CaseField = ({ id, name, type, options, isRequired }: CaseFieldProps) => {
+export const CaseField = ({ id, name, type, options, isRequired, isCheckedByDefault }: CaseFieldProps) => {
   const { value, updateField } = useFormField(id);
 
   const handleValueUpdate = (newValue: string | null) => {
@@ -38,7 +38,7 @@ export const CaseField = ({ id, name, type, options, isRequired }: CaseFieldProp
           value={value}
         />
         {nestedFields.map(({ id, type, children }) => (
-          <CaseField key={id} id={id} type={type} options={children} isRequired={isRequired} />
+          <CaseField key={id} id={id} type={type} options={children} isRequired={isRequired} isCheckedByDefault={isCheckedByDefault} />
         ))}
       </>
     );
